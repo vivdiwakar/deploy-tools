@@ -11,6 +11,6 @@ $ sudo apt-get install puppet-agent
 
 ### Usage ###
 ```
-$ puppet apply /path/to/install_<PACKAGE>.pp
+$ sudo puppet apply /path/to/install_<PACKAGE>.pp
 ```
 
