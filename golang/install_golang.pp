@@ -11,26 +11,36 @@ $paths = [
   '/usr/local/bin',
 ]
 
-file { '/tmp/go':
-  require => Exec["deploy_go_source"],
+exec { 'update_go_paths':
+  require => Exec[
+    'deploy_go_source'
+  ],
+  cwd => "/home/$::guser",
+  path => $paths,
+  command => "echo $::guser > gopher.txt",
+  creates => "/home/$::guser/gopher.txt",
+  returns => [0],
+  logoutput => on_failure,
 }
 
-exec { "retrieve_go_source":
+exec { 'deploy_go_source':
+  require => Exec[
+    'retrieve_go_source'
+  ],
+  cwd => '/tmp',
+  path => $paths,
+  command => "tar -zxf go$::gover.linux-amd64.tar.gz -C /usr/local",
+  creates => '/usr/local/go',
+  returns => [0],
+  logoutput => on_failure,
+}
+
+exec { 'retrieve_go_source':
   cwd => '/tmp',
   path => $paths,
   command => "wget -v https://storage.googleapis.com/golang/go$::gover.linux-amd64.tar.gz",
   creates => "/tmp/go$::gover.linux-amd64.tar.gz",
   returns => [0],
   logoutput => on_failure,
-}
-
-exec { "deploy_go_source":
-  cwd => '/tmp',
-  path => $paths,
-  command => "tar -zxf go$::gover.linux-amd64.tar.gz -C /tmp",
-  creates => "/tmp/go",
-  returns => [0],
-  logoutput => on_failure,
-  require => Exec["retrieve_go_source"],
 }
 
