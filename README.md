@@ -22,7 +22,7 @@ $ facter -v
 3.6.2 (commit 36e4f036cfab9e283f6b47bd5e3890a4de54c5ff)
 ```
 
-### Usage ###
+### Use installer and verify ###
 ```
 $ sudo env "PATH=${PATH}" env "FACTER_gover=<DESIRED_GO_VERSION>" env "FACTER_guser=<USER>" puppet apply /path/to/github/clone/<PACKAGE>/install_<PACKAGE>.pp
 $ . ~/.bashrc
