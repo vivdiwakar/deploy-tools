@@ -13,7 +13,7 @@ $ sudo apt-get install puppet-agent
 ```
 $ target=/home/${USER}/.bashrc
 $ grep -w PATH= ${target} 2> /dev/null > /dev/null ; if [ ${?} -ne 0 ] ; then echo -e "export PATH=${PATH}" >> ${target} ; fi
-$ sed -e 's/\(.* PATH=.*\)/\1:\/opt\/puppetlabs\/bin/g' -i.bak.`date +%Y%m%d` ${target}
+$ sed -e 's/\(.* PATH=.*\)/\1:\/opt\/puppetlabs\/bin/g' -i.bak.`date +%Y%m%d-%s` ${target}
 $ . ${target}
 $ sudo env "PATH=${PATH}" puppet module install puppetlabs-stdlib
 $ puppet help | grep \^Puppet 
@@ -25,5 +25,9 @@ $ facter -v
 ### Usage ###
 ```
 $ sudo env "PATH=${PATH}" env "FACTER_gover=<DESIRED_GO_VERSION>" env "FACTER_guser=<USER>" puppet apply /path/to/github/clone/<PACKAGE>/install_<PACKAGE>.pp
+$ . ~/.bashrc
+$ go version 
+go version go1.8 linux/amd64
+
 ```
 
