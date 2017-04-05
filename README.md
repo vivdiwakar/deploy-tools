@@ -19,6 +19,6 @@ Puppet v4.9.4
 
 ### Usage ###
 ```
-$ sudo puppet apply /path/to/install_<PACKAGE>.pp
+$ sudo puppet apply /path/to/clone/<PACKAGE>/install_<PACKAGE>.pp
 ```
 
