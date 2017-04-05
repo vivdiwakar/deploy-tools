@@ -23,6 +23,6 @@ $ facter -v
 
 ### Usage ###
 ```
-$ sudo env "PATH=${PATH}" env "FACTER_gover=<DESIRED_GO_VERSION>" puppet apply /path/to/github/clone/<PACKAGE>/install_<PACKAGE>.pp
+$ sudo env "PATH=${PATH}" env "FACTER_gover=<DESIRED_GO_VERSION>" env "FACTER_guser=<USER>" puppet apply /path/to/github/clone/<PACKAGE>/install_<PACKAGE>.pp
 ```
 
