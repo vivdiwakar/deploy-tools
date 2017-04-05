@@ -11,14 +11,18 @@ $ sudo apt-get install puppet-agent
 
 ### Update paths and verify ###
 ```
-$ sed -e 's/\(.* PATH=.*\)/\1:\/opt\/puppetlabs\/bin/g' -i.bak.`date +%Y%m%d` ~/.bashrc
-$ . ~/.bashrc
+$ target='~/.bashrc'
+$ grep -w PATH= ${target} 2> /dev/null > /dev/null ; if [ ${?} -ne 0 ] ; then echo -e "export PATH=${PATH}" >> ${target} ; fi
+$ sed -e 's/\(.* PATH=.*\)/\1:\/opt\/puppetlabs\/bin/g' -i.bak.`date +%Y%m%d` ${target}
+$ . ${target}
 $ puppet help | grep \^Puppet 
 Puppet v4.9.4
+$ facter -v
+3.6.2 (commit 36e4f036cfab9e283f6b47bd5e3890a4de54c5ff)
 ```
 
 ### Usage ###
 ```
-$ sudo puppet apply /path/to/clone/<PACKAGE>/install_<PACKAGE>.pp
+$ sudo env "PATH=${PATH}" env "FACTER_gover=<DESIRED_GO_VERSION>" puppet apply /path/to/github/clone/<PACKAGE>/install_<PACKAGE>.pp
 ```
 
