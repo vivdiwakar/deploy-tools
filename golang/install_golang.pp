@@ -2,8 +2,9 @@
 # Author: Viv Diwakar <viv@vdiwakar.com>
 # Date:   20170404
 #
+# Installer for downloading updtream Go, and installing
+#
 
-$go_version = '1.8'
 $paths = [
   '/bin',
   '/usr/bin',
@@ -17,8 +18,8 @@ file { '/tmp/go':
 exec { "retrieve_go_source":
   cwd => '/tmp',
   path => $paths,
-  command => "wget -v https://storage.googleapis.com/golang/go$go_version.linux-amd64.tar.gz",
-  creates => "/tmp/go$go_version.linux-amd64.tar.gz",
+  command => "wget -v https://storage.googleapis.com/golang/go$::gover.linux-amd64.tar.gz",
+  creates => "/tmp/go$::gover.linux-amd64.tar.gz",
   returns => [0],
   logoutput => on_failure,
 }
@@ -26,7 +27,7 @@ exec { "retrieve_go_source":
 exec { "deploy_go_source":
   cwd => '/tmp',
   path => $paths,
-  command => "tar -zxf go$go_version.linux-amd64.tar.gz -C /tmp",
+  command => "tar -zxf go$::gover.linux-amd64.tar.gz -C /tmp",
   creates => "/tmp/go",
   returns => [0],
   logoutput => on_failure,
