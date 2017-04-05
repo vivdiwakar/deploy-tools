@@ -11,7 +11,7 @@ $ sudo apt-get install puppet-agent
 
 ### Update paths and verify ###
 ```
-$ target='~/.bashrc'
+$ target=/home/${USER}/.bashrc
 $ grep -w PATH= ${target} 2> /dev/null > /dev/null ; if [ ${?} -ne 0 ] ; then echo -e "export PATH=${PATH}" >> ${target} ; fi
 $ sed -e 's/\(.* PATH=.*\)/\1:\/opt\/puppetlabs\/bin/g' -i.bak.`date +%Y%m%d` ${target}
 $ . ${target}
