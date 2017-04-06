@@ -33,6 +33,7 @@ $ sudo env "PATH=${PATH}" env "FACTER_gover=<DESIRED_GO_VERSION>" env "FACTER_gu
 $ . ~/.bashrc
 $ go version 
 go version go1.8 linux/amd64
-
+$ set | grep \^GO
+GOPATH=/home/vivd/Devel/go
+GOROOT=/usr/local/go
 ```
-
