@@ -1,7 +1,7 @@
 # deploy-tools
 Deployment scripts run using Puppet (local) on an Ubuntu-based host.
 
-### Installation ###
+### Install Puppet agent to manage installs from manifests ###
 ```
 $ wget -c "https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb" -O /tmp/puppetlabs-release-pc1-xenial.deb 
 $ sudo dpkg -i /tmp/puppetlabs-release-pc1-xenial.deb 
