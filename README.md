@@ -13,7 +13,7 @@ $ sudo apt-get install puppet-agent
 ```
 $ target=/home/${USER}/.bashrc
 $ grep -w PATH= ${target} 2> /dev/null > /dev/null ; if [ ${?} -ne 0 ] ; then echo -e "export PATH=${PATH}" >> ${target} ; fi
-$ sed -e 's/\(.* PATH=.*\)/\1:\/opt\/puppetlabs\/bin/g' -i.bak.`date +%Y%m%d-%s` ${target}
+$ sed -e '/\/opt\/puppetlabs\/bin/! s/\(.* PATH=.*\)/\1:\/opt\/puppetlabs\/bin/g' -i.bak.`date +%Y%m%d-%s` ${target}
 $ . ${target}
 $ puppet help | grep \^Puppet 
 Puppet v4.9.4
