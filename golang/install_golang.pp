@@ -2,7 +2,7 @@
 # Author: Viv Diwakar <viv@vdiwakar.com>
 # Date:   20170406
 #
-# Installer for downloading updtream Go, and installing
+# Installer for downloading upstream Go, and installing
 #
 
 include '::archive'
@@ -10,24 +10,31 @@ include stdlib
 
 $paths = [ '/bin', '/usr/bin', '/usr/local/bin' ]
 
-# Add the GOPATH path
-file_line { 'add_gopath_path':
-  require => Exec['update_local_path'],
-  path => "/home/$::guser/.bashrc",
-  line => "export GOPATH=\${HOME}/$::gpath/go",
-}
-
-# Add the go workspaces binary path to PATH
-exec { 'update_local_path':
-  require => File["/home/$::guser/$::gpath/go/bin"],
+# Add the Go binary ${GOBIN} path to ${PATH}
+exec { 'update_gobin_path':
+  require => File_Line['add_gobin_path'],
   cwd => "/home/$::guser",
   path => $paths,
-  command => "sed -e '/\/home\/$::guser\/$::gpath\/go\/bin/! s/\(.* PATH=.*\)/\1:\/home\/$::guser\/$::gpath\/go\/bin/g' -i.bak.`date +%Y%m%d-%s` /home/$::guser/.bashrc",
+  command => "sed -e '/\${GOBIN}/! s/\(.* PATH=.*\)/\1:\${GOBIN}/g' -i.bak.`date +%Y%m%d-%s` /home/$::guser/.bashrc",
   returns => [0],
   logoutput => on_failure,
 }
 
-# Create the environment
+# Add the ${GOBIN} path
+file_line { 'add_gobin_path':
+  require => File_Line['add_gopath_path'],
+  path => "/home/$::guser/.bashrc",
+  line => "export GOBIN=\${GOPATH}/bin",
+}
+
+# Add the ${GOPATH} path
+file_line { 'add_gopath_path':
+  require => File["/home/$::guser/$::gpath/go/bin"],
+  path => "/home/$::guser/.bashrc",
+  line => "export GOPATH=\${HOME}/$::gpath/go",
+}
+
+# Create the ${GOPATH} environment
 file { [ "/home/$::guser/$::gpath", "/home/$::guser/$::gpath/go", "/home/$::guser/$::gpath/go/bin", "/home/$::guser/$::gpath/go/src", "/home/$::guser/$::gpath/go/pkg" ]:
   require => Exec['update_exec_path'],
   ensure => 'directory',
@@ -36,12 +43,12 @@ file { [ "/home/$::guser/$::gpath", "/home/$::guser/$::gpath/go", "/home/$::guse
   mode   => '0755',
 }
 
-# Add the go binary path to PATH
+# Add the Go binary ${GOROOT}/bin path to ${PATH}
 exec { 'update_exec_path':
   require => File_Line['add_goroot_path'],
   cwd => "/home/$::guser",
   path => $paths,
-  command => "sed -e '/\/usr\/local\/go\/bin/! s/\(.* PATH=.*\)/\1:\/usr\/local\/go\/bin/g' -i.bak.`date +%Y%m%d-%s` /home/$::guser/.bashrc",
+  command => "sed -e '/\${GOROOT}\/bin/! s/\(.* PATH=.*\)/\1:\${GOROOT}\/bin/g' -i.bak.`date +%Y%m%d-%s` /home/$::guser/.bashrc",
   returns => [0],
   logoutput => on_failure,
 }
