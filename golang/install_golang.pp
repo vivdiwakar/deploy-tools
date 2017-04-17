@@ -62,11 +62,26 @@ file_line { 'add_goroot_path':
 
 # Download and extract the upstream binary
 archive { "go$::gover.linux-amd64.tar.gz":
+  require => Exec['check_curr_ver'],
   path          => "/tmp/go$::gover.linux-amd64.tar.gz",
   source        => "https://storage.googleapis.com/golang/go$::gover.linux-amd64.tar.gz",
   extract       => true,
   extract_path  => '/usr/local',
   creates       => '/usr/local/go',
   cleanup       => false,
+}
+
+# check existing version of Go, if any
+exec { 'check_curr_ver':
+  cwd => '/usr/local',
+  path => $paths,
+  command => 'mv -v /usr/local/go{,.old.`date +%Y%m%d-%s`}',
+  onlyif => [
+    'test -d /usr/local/go',
+    'test -x /usr/local/go/bin/go',
+    "test \"`/usr/local/go/bin/go version | awk '{print \$3}'`\" != \"go$::gover\""
+  ],
+  returns => [0],
+  logoutput => on_failure,
 }
 
