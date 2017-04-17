@@ -25,6 +25,9 @@ $ facter -v
 ```
 $ sudo env "PATH=${PATH}" puppet module install puppetlabs-stdlib
 $ sudo env "PATH=${PATH}" puppet module install puppet-archive
+$ sudo env "PATH=${PATH}" puppet module list | grep -E archive\|stdlib
+├── puppet-archive (v1.3.0)
+└── puppetlabs-stdlib (v4.16.0)
 ```
 
 ### Use installer and verify ###
