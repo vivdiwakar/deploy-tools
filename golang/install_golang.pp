@@ -76,7 +76,7 @@ archive { "go$::gover.linux-amd64.tar.gz":
 exec { 'check_curr_ver':
   cwd => '/usr/local',
   path => $paths,
-  command => 'mv -v /usr/local/go{,.old.`date +%Y%m%d-%s`}',
+  command => 'mv -v /usr/local/go /usr/local/go.old.`date +%Y%m%d-%s`',
   onlyif => [
     'test -d /usr/local/go',
     'test -x /usr/local/go/bin/go',
