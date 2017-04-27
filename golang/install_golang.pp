@@ -11,6 +11,16 @@ include stdlib
 
 $paths = [ '/bin', '/usr/bin', '/usr/local/bin' ]
 
+# Install Golint coding style checker
+exec { 'install_golint':
+  require => File_Line['update_gobin_path'],
+  cwd => "/home/$::guser",
+  path => $paths,
+  command => 'go get -v -u github.com/golang/lint/golint',
+  returns => [0],
+  logoutput => on_failure,
+}
+
 # Add the Go binary ${GOBIN} path to ${PATH}
 exec { 'update_gobin_path':
   require => File_Line['add_gobin_path'],
