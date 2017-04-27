@@ -40,3 +40,9 @@ $ set | grep \^GO
 GOPATH=/home/vivd/Devel/go
 GOROOT=/usr/local/go
 ```
+
+### Install additional Go tools ###
+```
+$ go get -v -u github.com/golang/lint/golint
+```
+
