@@ -1,5 +1,5 @@
 # deploy-tools
-Deployment scripts run using Puppet (local) on an Ubuntu-based host.
+Deployment scripts to install languages locally using Puppet (on an Ubuntu-based host).
 
 ### Install Puppet agent to manage installs from manifests ###
 ```
