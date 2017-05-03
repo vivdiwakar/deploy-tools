@@ -25,9 +25,12 @@ $ facter -v
 ```
 $ sudo env "PATH=${PATH}" puppet module install puppetlabs-stdlib
 $ sudo env "PATH=${PATH}" puppet module install puppet-archive
-$ sudo env "PATH=${PATH}" puppet module list | grep -E archive\|stdlib
+$ sudo env "PATH=${PATH}" puppet module install puppetlabs-docker_platform
+$ sudo env "PATH=${PATH}" puppet module list | grep -E archive\|stdlib\|docker 
+├── garethr-docker (v5.3.0)
 ├── puppet-archive (v1.3.0)
-└── puppetlabs-stdlib (v4.16.0)
+├── puppetlabs-docker_platform (v2.2.1)
+├── puppetlabs-stdlib (v4.16.0)
 ```
 
 ### Use installer and verify ###
