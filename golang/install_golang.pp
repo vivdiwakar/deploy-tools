@@ -11,6 +11,16 @@ include stdlib
 
 $paths = [ '/bin', '/usr/bin', '/usr/local/bin' ]
 
+# Move PATH line to the very last, to ensure Go environment variables are set ahead
+exec { 'move_path_line':
+  require => Exec['update_gobin_path'],
+  cwd => "/home/$::guser",
+  path => $paths,
+  command => "cp /home/$::guser/.bashrc /tmp/_bashrc && PATH_LINE=`cat /tmp/_bashrc | grep export\ PATH=` && cat /tmp/_bashrc | grep -v export\ PATH= > /tmp/_bashrc.new && echo \"\n\${PATH_LINE}\" >> /tmp/_bashrc.new && cp /tmp/_bashrc.new /home/$::guser/.bashrc",
+  returns => [0],
+  logoutput => on_failure,
+}
+
 # Add the Go binary ${GOBIN} path to ${PATH}
 exec { 'update_gobin_path':
   require => File_Line['add_gobin_path'],
