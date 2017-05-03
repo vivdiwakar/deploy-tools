@@ -1,9 +1,7 @@
-######
-######
 #
 # Author: 	Viv Diwakar <viv@vdiwakar.com>
 # Date:   	20170406
-# Last update:	20170503 12:54:12 BST (+0100)
+# Last update:	20170503 12:55:44 BST (+0100)
 #
 # Installer for downloading upstream Go, and installing
 #
