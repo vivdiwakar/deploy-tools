@@ -49,3 +49,7 @@ GOROOT=/usr/local/go
 $ go get -v -u github.com/golang/lint/golint
 ```
 
+---
+
+###### Last Updated: 20170522 13:37:29 BST (+0100) ######
+
